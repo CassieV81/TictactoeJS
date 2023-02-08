@@ -1,4 +1,6 @@
-
+body {
+  background-color: grey;
+}
 
 .mainContent {
   display: flex;
@@ -21,4 +23,7 @@
   border: solid 1px;
   width: 100px;
   height: 100px;
+  text-align: center;
+  font-size: 5rem;
+  font-family: monospace;
 }
