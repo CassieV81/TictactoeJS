@@ -79,6 +79,15 @@ const playGame = (player, marker) => {
     }
   }
 
+  const clearGame = () => {
+    grids.forEach((grid) => grid.innerText = '');
+    popUpMessage('none');
+    gameOver = false;
+    gameInProgress = false;
+  }
+
+  restart.addEventListener('click', (e) => clearGame())
+
   return {humanPlay, computerPlay};
 }
 
