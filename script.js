@@ -56,6 +56,16 @@ const playGame = (player, marker) => {
     popUpMessage('block');
     gameOver = true;
   }
+  const checkGrids = () => {
+    let newGrid = [];
+    let isNotEmpty = (num) => num != '';
+    grids.forEach((grid) => {
+      newGrid.push(grid.innerText);
+      })
+      if (newGrid.every(isNotEmpty)) {
+        gameOver = true;
+      }
+    }
   
   closePopUp.addEventListener('click', (e) => popUpMessage('none'));
 
@@ -76,6 +86,8 @@ const playGame = (player, marker) => {
       winMessage(player);
     } else if (grids[2].innerText == marker && grids[4].innerText == marker && grids[6].innerText == marker) {
       winMessage(player);
+    } else {
+      checkGrids();
     }
   }
 
