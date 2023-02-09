@@ -4,7 +4,7 @@ const grids = document.querySelectorAll('.grid');
 const message = document.getElementById('message');
 const popUp = document.querySelector('.popUpWrap');
 const restart = document.querySelector('.restart');
-const close = document.querySelector('.close');
+const closePopUp = document.querySelector('.close');
 let gameInProgress = false;
 let gameOver = false;
 
@@ -43,39 +43,47 @@ const playGame = (player, marker) => {
     if (random.innerText == '') {
       random.innerText = 'o'; 
       gameInProgress = false;
-      checkWin(player);
+      checkWin(player, marker);
     } else {
       computerPlay();
     }
   };
-  const winMessage = () => {
+  const popUpMessage = (string) => {
+    popUp.style.display = string;
+  }
+  const winMessage = (player) => {
     message.innerText = player + ' wins';
-    popUp.style.display = 'block';
+    popUpMessage('block');
     gameOver = true;
   }
+  
+  closePopUp.addEventListener('click', (e) => popUpMessage('none'));
 
   const checkWin = (player, marker) => {
     if (grids[0].innerText == marker && grids[1].innerText == marker && grids[2].innerText == marker) {
-      winMessage();
+      winMessage(player);
     } else if (grids[3].innerText == marker && grids[4].innerText == marker && grids[5].innerText == marker) {
-      winMessage();
+      winMessage(player);
     } else if (grids[6].innerText == marker && grids[7].innerText == marker && grids[8].innerText == marker) {
-      winMessage();
+      winMessage(player);
     } else if (grids[0].innerText == marker && grids[3].innerText == marker && grids[6].innerText == marker) {
-      winMessage();
+      winMessage(player);
     } else if (grids[1].innerText == marker && grids[4].innerText == marker && grids[7].innerText == marker) {
-      winMessage();
+      winMessage(player);
     } else if (grids[2].innerText == marker && grids[5].innerText == marker && grids[8].innerText == marker) {
-      winMessage();
+      winMessage(player);
     } else if (grids[0].innerText == marker && grids[4].innerText == marker && grids[8].innerText == marker) {
-      winMessage();
+      winMessage(player);
     } else if (grids[2].innerText == marker && grids[4].innerText == marker && grids[6].innerText == marker) {
-      winMessage();
+      winMessage(player);
     }
   }
 
   return {humanPlay, computerPlay};
 }
+
+
+
 
 const play = playGame();
 
