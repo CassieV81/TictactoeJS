@@ -1,26 +1,53 @@
 'use strict'
 
 const grids = document.querySelectorAll('.grid');
+let gameInProgress = false;
 
-const gamePlay = () => {
-  const player1 = 'o';
-  const player2 = 'x';
+const playGame = () => {
 
-  const addMarker = () => {
+
+  const humanPlay = () => {
     grids.forEach(grid => {
       grid.addEventListener('click', function() {
-        grid.innerText = player1;
+        if (grid.innerText == '') {
+          grid.innerText = 'x';
+          gameInProgress = true;
+          if (gameInProgress) {
+            setTimeout(computerPlay, 1000);
+          }
+        }
       });
     });
-  }
-
+  };
+  
   const computerPlay = () => {
-    let random = Math.floor(Math.random() * 10);
-    grids[random].innerText = player2;
+    let random = grids[Math.floor(Math.random() * grids.length)];
+    if (random.innerText == '') {
+      random.innerText = 'o'; 
+      gameInProgress = false;
+    } else {
+      computerPlay();
+    }
+  };
+
+  const checkWin = () => {
+    
   }
 
-  return addMarker(), computerPlay();
+  return {humanPlay, computerPlay};
 }
 
-const play = gamePlay();
+const human = playGame();
+const computer = playGame();
+human.humanPlay();
+// const play = () => {
+   
+//     human.humanPlay();
+//     if (gameInProgress) {
+//       computer.computerPlay;
+//     }
+// } 
+// play();
+// console.log(grids.length)
+
 
