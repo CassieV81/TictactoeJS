@@ -63,6 +63,8 @@ const playGame = (player, marker) => {
       newGrid.push(grid.innerText);
       })
       if (newGrid.every(isNotEmpty)) {
+        message.innerText = 'It is a tie!';
+        popUpMessage('block');
         gameOver = true;
       }
     }
