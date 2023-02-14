@@ -44,7 +44,7 @@ div h1 {
   display: none;
 }
 
-.popUp {
+.popUp, .popUps {
   border: solid 1px;
   border-radius: 20px;
   width: 52vw;

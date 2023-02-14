@@ -6,6 +6,9 @@ const popUp = document.querySelector('.popUpWrap');
 const restart = document.querySelector('.restart');
 const closePopUp = document.querySelector('.close');
 const winLine = document.querySelector('.winLine');
+const easyBtn = document.querySelector('.easy');
+const mediumBtn = document.querySelector('.medium');
+const popUpWraps = document.querySelector('.popUpWraps');
 let gameInProgress = false;
 let gameOver = false;
 
@@ -227,5 +230,15 @@ const playGame = (player, marker) => {
 
 const play = playGame();
 
-play.easyPlay();
+const easy = () => {
+  play.easyPlay();
+  popUpWraps.style.display = 'none';
+}
 
+const hard = () => {
+  play.hardPlay();
+  popUpWraps.style.display = 'none';
+}
+
+easyBtn.addEventListener('click', (e) => easy());
+mediumBtn.addEventListener('click', (e) => hard());
