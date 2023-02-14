@@ -30,10 +30,10 @@ div h1 {
 
 .grid {
   border: solid 1px;
-  width: 100px;
-  height: 100px;
+  width: 20vw;
+  height: 20vw;
   text-align: center;
-  font-size: 6rem;
+  font-size: calc(2em + 10vw);
   font-family: monospace;
   cursor: pointer;
   overflow: hidden;
