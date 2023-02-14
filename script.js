@@ -26,13 +26,90 @@ const playGame = (player, marker) => {
             gameInProgress = true;
             checkWin(player, marker);
             if (gameInProgress) {
-              setTimeout(computerPlay, 1000);
+              setTimeout(hardPlay, 1000);
             }
           }
         }
       });
     });
   };
+
+  const winCombination = (player, marker) => {
+    if ((grids[0].innerText == marker && grids[1].innerText == marker && grids[2].innerText == marker) || 
+        (grids[3].innerText == marker && grids[4].innerText == marker && grids[5].innerText == marker) || 
+        (grids[6].innerText == marker && grids[7].innerText == marker && grids[8].innerText == marker) || 
+        (grids[0].innerText == marker && grids[3].innerText == marker && grids[6].innerText == marker) || 
+        (grids[1].innerText == marker && grids[4].innerText == marker && grids[7].innerText == marker) || 
+        (grids[2].innerText == marker && grids[5].innerText == marker && grids[8].innerText == marker) || 
+        (grids[0].innerText == marker && grids[4].innerText == marker && grids[8].innerText == marker) || 
+        (grids[2].innerText == marker && grids[4].innerText == marker && grids[6].innerText == marker)) {
+      return true;
+    }
+  }
+  const hardPlay = (player, marker) => {
+    if (gameOver) {
+      return;
+    }
+    player = 'Computer';
+    marker = 'o';
+    if ((grids[0].innerText == '' && grids[1].innerText == 'x' && grids[2].innerText == 'x') ||
+        (grids[0].innerText == '' && grids[3].innerText == 'x' && grids[6].innerText == 'x') ||
+        (grids[0].innerText == '' && grids[4].innerText == 'x' && grids[8].innerText == 'x')) {
+          grids[0].innerText = marker;
+          gameInProgress = false;
+          checkWin(player, marker);
+    } else if ((grids[2].innerText == '' && grids[1].innerText == 'x' && grids[0].innerText == 'x') ||
+               (grids[2].innerText == '' && grids[5].innerText == 'x' && grids[8].innerText == 'x') ||
+               (grids[2].innerText == '' && grids[4].innerText == 'x' && grids[6].innerText == 'x')) {
+          grids[2].innerText = marker;
+          gameInProgress = false;
+          checkWin(player, marker);
+    } else if ((grids[6].innerText == '' && grids[3].innerText == 'x' && grids[0].innerText == 'x') ||
+               (grids[6].innerText == '' && grids[5].innerText == 'x' && grids[2].innerText == 'x') ||
+               (grids[6].innerText == '' && grids[7].innerText == 'x' && grids[8].innerText == 'x')) {
+          grids[6].innerText = marker;
+          gameInProgress = false;
+          checkWin(player, marker);
+    } else if ((grids[8].innerText == '' && grids[4].innerText == 'x' && grids[0].innerText == 'x') ||
+               (grids[8].innerText == '' && grids[5].innerText == 'x' && grids[2].innerText == 'x') ||
+               (grids[8].innerText == '' && grids[7].innerText == 'x' && grids[6].innerText == 'x')) {
+          grids[8].innerText = marker;
+          gameInProgress = false;
+          checkWin(player, marker);
+    } else if (grids[1].innerText == '' && grids[4].innerText == 'x' && grids[7].innerText == 'x') {
+          grids[1].innerText = marker;
+          gameInProgress = false;
+          checkWin(player, marker);
+    } else if (grids[3].innerText == '' && grids[4].innerText == 'x' && grids[5].innerText == 'x') {
+          grids[3].innerText = marker;
+          gameInProgress = false;
+          checkWin(player, marker);
+    } else if (grids[7].innerText == '' && grids[4].innerText == 'x' && grids[1].innerText == 'x') {
+          grids[7].innerText = marker;
+          gameInProgress = false;
+          checkWin(player, marker);
+    } else if (grids[5].innerText == '' && grids[4].innerText == 'x' && grids[3].innerText == 'x') {
+          grids[5].innerText = marker;
+          gameInProgress = false;
+          checkWin(player, marker);
+    } else if ((grids[4].innerText == '' && grids[0].innerText == 'x' && grids[8].innerText == 'x') ||
+               (grids[4].innerText == '' && grids[2].innerText == 'x' && grids[6].innerText == 'x') ||
+               (grids[4].innerText == '' && grids[7].innerText == 'x' && grids[1].innerText == 'x') ||
+               (grids[4].innerText == '' && grids[3].innerText == 'x' && grids[5].innerText == 'x')) {
+          grids[4].innerText = marker;
+          gameInProgress = false;
+          checkWin(player, marker);
+    } else {
+      let random = grids[Math.floor(Math.random() * grids.length)];
+      if (random.innerText == '') {
+        random.innerText = 'o'; 
+        gameInProgress = false;
+        checkWin(player, marker);
+      } else {
+        hardPlay();
+      }
+    }
+  }
   
   const computerPlay = (player, marker) => {
     if (gameOver) {
@@ -81,18 +158,25 @@ const playGame = (player, marker) => {
       setTimeout(showWin, 1000, 'winLine1');
       setTimeout(winMessage, 2000, player);
     } else if (grids[3].innerText == marker && grids[4].innerText == marker && grids[5].innerText == marker) {
+      gameOver = true;
       setTimeout(showWin, 1000, 'winLine2');      setTimeout(winMessage, 2000, player);
     } else if (grids[6].innerText == marker && grids[7].innerText == marker && grids[8].innerText == marker) {
+      gameOver = true;
       setTimeout(showWin, 1000, 'winLine3');      setTimeout(winMessage, 2000, player);
     } else if (grids[0].innerText == marker && grids[3].innerText == marker && grids[6].innerText == marker) {
+      gameOver = true;
       setTimeout(showWin, 1000, 'winLine4');      setTimeout(winMessage, 2000, player);
     } else if (grids[1].innerText == marker && grids[4].innerText == marker && grids[7].innerText == marker) {
+      gameOver = true;
       setTimeout(showWin, 1000, 'winLine5');      setTimeout(winMessage, 2000, player);
     } else if (grids[2].innerText == marker && grids[5].innerText == marker && grids[8].innerText == marker) {
+      gameOver = true;
       setTimeout(showWin, 1000, 'winLine6');      setTimeout(winMessage, 2000, player);
     } else if (grids[0].innerText == marker && grids[4].innerText == marker && grids[8].innerText == marker) {
+      gameOver = true;
       setTimeout(showWin, 1000, 'winLine7');      setTimeout(winMessage, 2000, player);
     } else if (grids[2].innerText == marker && grids[4].innerText == marker && grids[6].innerText == marker) {
+      gameOver = true;
       setTimeout(showWin, 1000, 'winLine8');      setTimeout(winMessage, 2000, player);
     } else {
       checkGrids();
@@ -108,7 +192,7 @@ const playGame = (player, marker) => {
 
   restart.addEventListener('click', (e) => clearGame())
 
-  return {humanPlay, computerPlay};
+  return {humanPlay};
 }
 
 
