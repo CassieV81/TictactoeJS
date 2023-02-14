@@ -12,7 +12,7 @@ let gameOver = false;
 const playGame = (player, marker) => {
 
 
-  const humanPlay = () => {
+  const hardPlay = () => {
     if (gameOver) {
       return;
     }
@@ -26,27 +26,35 @@ const playGame = (player, marker) => {
             gameInProgress = true;
             checkWin(player, marker);
             if (gameInProgress) {
-              setTimeout(hardPlay, 1000);
+              setTimeout(computerHard, 1000);
             }
           }
         }
       });
     });
   };
-
-  const winCombination = (player, marker) => {
-    if ((grids[0].innerText == marker && grids[1].innerText == marker && grids[2].innerText == marker) || 
-        (grids[3].innerText == marker && grids[4].innerText == marker && grids[5].innerText == marker) || 
-        (grids[6].innerText == marker && grids[7].innerText == marker && grids[8].innerText == marker) || 
-        (grids[0].innerText == marker && grids[3].innerText == marker && grids[6].innerText == marker) || 
-        (grids[1].innerText == marker && grids[4].innerText == marker && grids[7].innerText == marker) || 
-        (grids[2].innerText == marker && grids[5].innerText == marker && grids[8].innerText == marker) || 
-        (grids[0].innerText == marker && grids[4].innerText == marker && grids[8].innerText == marker) || 
-        (grids[2].innerText == marker && grids[4].innerText == marker && grids[6].innerText == marker)) {
-      return true;
+  const easyPlay = () => {
+    if (gameOver) {
+      return;
     }
+    player = 'Player 1';
+    marker = 'x';
+    grids.forEach(grid => {
+      grid.addEventListener('click', function() {
+        if (gameInProgress == false) {
+          if (grid.innerText == '') {
+            grid.innerText = marker;
+            gameInProgress = true;
+            checkWin(player, marker);
+            if (gameInProgress) {
+              setTimeout(computerEasy, 1000);
+            }
+          }
+        }
+      });
+    });
   }
-  const hardPlay = (player, marker) => {
+  const computerHard = (player, marker) => {
     if (gameOver) {
       return;
     }
@@ -106,12 +114,12 @@ const playGame = (player, marker) => {
         gameInProgress = false;
         checkWin(player, marker);
       } else {
-        hardPlay();
+        computerHard();
       }
     }
   }
   
-  const computerPlay = (player, marker) => {
+  const computerEasy = (player, marker) => {
     if (gameOver) {
       return;
     }
@@ -123,7 +131,7 @@ const playGame = (player, marker) => {
       gameInProgress = false;
       checkWin(player, marker);
     } else {
-      computerPlay();
+      computerEasy();
     }
   };
   const popUpMessage = (string) => {
@@ -147,7 +155,11 @@ const playGame = (player, marker) => {
     }
   }
   const showWin = (string) => {
-    winLine.setAttribute('class',string);
+    winLine.setAttribute('class', string);
+  }
+  const hideWin = (string) => {
+    winLine.removeAttribute('class', string);
+    winLine.setAttribute('class', 'winLine');
   }
   
   closePopUp.addEventListener('click', (e) => popUpMessage('none'));
@@ -157,27 +169,42 @@ const playGame = (player, marker) => {
       gameOver = true;
       setTimeout(showWin, 1000, 'winLine1');
       setTimeout(winMessage, 2000, player);
+      setTimeout(hideWin, 3000, 'winLine1');
     } else if (grids[3].innerText == marker && grids[4].innerText == marker && grids[5].innerText == marker) {
       gameOver = true;
-      setTimeout(showWin, 1000, 'winLine2');      setTimeout(winMessage, 2000, player);
+      setTimeout(showWin, 1000, 'winLine2');      
+      setTimeout(winMessage, 2000, player);
+      setTimeout(hideWin, 3000, 'winLine2');
     } else if (grids[6].innerText == marker && grids[7].innerText == marker && grids[8].innerText == marker) {
       gameOver = true;
-      setTimeout(showWin, 1000, 'winLine3');      setTimeout(winMessage, 2000, player);
+      setTimeout(showWin, 1000, 'winLine3');      
+      setTimeout(winMessage, 2000, player);
+      setTimeout(hideWin, 3000, 'winLine3');
     } else if (grids[0].innerText == marker && grids[3].innerText == marker && grids[6].innerText == marker) {
       gameOver = true;
-      setTimeout(showWin, 1000, 'winLine4');      setTimeout(winMessage, 2000, player);
+      setTimeout(showWin, 1000, 'winLine4');      
+      setTimeout(winMessage, 2000, player);
+      setTimeout(hideWin, 3000, 'winLine4');
     } else if (grids[1].innerText == marker && grids[4].innerText == marker && grids[7].innerText == marker) {
       gameOver = true;
-      setTimeout(showWin, 1000, 'winLine5');      setTimeout(winMessage, 2000, player);
+      setTimeout(showWin, 1000, 'winLine5');      
+      setTimeout(winMessage, 2000, player);
+      setTimeout(hideWin, 3000, 'winLine5');
     } else if (grids[2].innerText == marker && grids[5].innerText == marker && grids[8].innerText == marker) {
       gameOver = true;
-      setTimeout(showWin, 1000, 'winLine6');      setTimeout(winMessage, 2000, player);
+      setTimeout(showWin, 1000, 'winLine6');      
+      setTimeout(winMessage, 2000, player);
+      setTimeout(hideWin, 3000, 'winLine6');
     } else if (grids[0].innerText == marker && grids[4].innerText == marker && grids[8].innerText == marker) {
       gameOver = true;
-      setTimeout(showWin, 1000, 'winLine7');      setTimeout(winMessage, 2000, player);
+      setTimeout(showWin, 1000, 'winLine7');      
+      setTimeout(winMessage, 2000, player);
+      setTimeout(hideWin, 3000, 'winLine7');
     } else if (grids[2].innerText == marker && grids[4].innerText == marker && grids[6].innerText == marker) {
       gameOver = true;
-      setTimeout(showWin, 1000, 'winLine8');      setTimeout(winMessage, 2000, player);
+      setTimeout(showWin, 1000, 'winLine8');      
+      setTimeout(winMessage, 2000, player);
+      setTimeout(hideWin, 3000, 'winLine8');
     } else {
       checkGrids();
     }
@@ -192,7 +219,7 @@ const playGame = (player, marker) => {
 
   restart.addEventListener('click', (e) => clearGame())
 
-  return {humanPlay};
+  return {hardPlay, easyPlay};
 }
 
 
@@ -200,5 +227,5 @@ const playGame = (player, marker) => {
 
 const play = playGame();
 
-play.humanPlay();
+play.easyPlay();
 

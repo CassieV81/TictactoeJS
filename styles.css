@@ -88,15 +88,6 @@ div h1 {
 }
 .winLine {
   display: none;
-  /* background-color: rgba(238, 79, 16, 0.8);
-  border-radius: 20px;
-  position: absolute;
-  display: block;
-  width: 85%;
-  height: 10%;
-  top: 12%;
-  left: 8%;
-  transition: .35s ease-in-out; */
 }
 .winLine1 {
   background-color: rgba(238, 79, 16, 0.8);
