@@ -5,6 +5,7 @@ const message = document.getElementById('message');
 const popUp = document.querySelector('.popUpWrap');
 const restart = document.querySelector('.restart');
 const closePopUp = document.querySelector('.close');
+const winLine = document.querySelector('.winLine');
 let gameInProgress = false;
 let gameOver = false;
 
@@ -61,33 +62,38 @@ const playGame = (player, marker) => {
     let isNotEmpty = (num) => num != '';
     grids.forEach((grid) => {
       newGrid.push(grid.innerText);
-      })
-      if (newGrid.every(isNotEmpty)) {
-        message.innerText = 'It is a tie!';
-        popUpMessage('block');
-        gameOver = true;
-      }
+    })
+    if (newGrid.every(isNotEmpty)) {
+      message.innerText = 'It is a tie!';
+      popUpMessage('block');
+      gameOver = true;
     }
+  }
+  const showWin = (string) => {
+    winLine.setAttribute('class',string);
+  }
   
   closePopUp.addEventListener('click', (e) => popUpMessage('none'));
 
   const checkWin = (player, marker) => {
     if (grids[0].innerText == marker && grids[1].innerText == marker && grids[2].innerText == marker) {
-      winMessage(player);
+      gameOver = true;
+      setTimeout(showWin, 1000, 'winLine1');
+      setTimeout(winMessage, 2000, player);
     } else if (grids[3].innerText == marker && grids[4].innerText == marker && grids[5].innerText == marker) {
-      winMessage(player);
+      setTimeout(showWin, 1000, 'winLine2');      setTimeout(winMessage, 2000, player);
     } else if (grids[6].innerText == marker && grids[7].innerText == marker && grids[8].innerText == marker) {
-      winMessage(player);
+      setTimeout(showWin, 1000, 'winLine3');      setTimeout(winMessage, 2000, player);
     } else if (grids[0].innerText == marker && grids[3].innerText == marker && grids[6].innerText == marker) {
-      winMessage(player);
+      setTimeout(showWin, 1000, 'winLine4');      setTimeout(winMessage, 2000, player);
     } else if (grids[1].innerText == marker && grids[4].innerText == marker && grids[7].innerText == marker) {
-      winMessage(player);
+      setTimeout(showWin, 1000, 'winLine5');      setTimeout(winMessage, 2000, player);
     } else if (grids[2].innerText == marker && grids[5].innerText == marker && grids[8].innerText == marker) {
-      winMessage(player);
+      setTimeout(showWin, 1000, 'winLine6');      setTimeout(winMessage, 2000, player);
     } else if (grids[0].innerText == marker && grids[4].innerText == marker && grids[8].innerText == marker) {
-      winMessage(player);
+      setTimeout(showWin, 1000, 'winLine7');      setTimeout(winMessage, 2000, player);
     } else if (grids[2].innerText == marker && grids[4].innerText == marker && grids[6].innerText == marker) {
-      winMessage(player);
+      setTimeout(showWin, 1000, 'winLine8');      setTimeout(winMessage, 2000, player);
     } else {
       checkGrids();
     }
