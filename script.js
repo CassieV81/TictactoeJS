@@ -163,7 +163,7 @@ const playGame = (player, marker) => {
   }
 
   const clearGame = () => {
-    grids.forEach((grid) => grid.innerText = '');
+    grids.forEach((grid) => grid.removeAttribute('class'));
     popUpMessage('none');
     gameOver = false;
     gameInProgress = false;
