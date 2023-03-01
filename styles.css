@@ -1,8 +1,5 @@
 body {
-  background-image: url('img.jfif');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: grey;
+  background-color: aliceblue;
   height: 100vh;
 }
 
@@ -29,7 +26,7 @@ div h1 {
   position: relative;
 }
 
-.grid {
+#grid {
   border: solid 1px;
   width: 12vw;
   height: 12vw;
@@ -38,7 +35,39 @@ div h1 {
   font-family: monospace;
   cursor: pointer;
   overflow: hidden;
+  position: relative;
 }
+
+.markerX::before, .markerX::after {
+  content: '';
+  background-color: black;
+  border-radius: 50px;
+  width: 15%;
+  height: 95%;
+  position: absolute;
+  transform: rotate(45deg);
+  margin: auto;
+  inset: 0;
+}
+.markerX::after {
+  transform: rotate(-45deg);
+}
+.markerO::before, .markerO::after {
+  content: '';
+  background-color: black;
+  border-radius: 50%;
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  margin: auto;
+  inset: 0;
+}
+.markerO::after {
+  width: 50%;
+  height: 50%;
+  background-color: aliceblue;
+}
+
 
 .popUpWrap {
   display: none;
