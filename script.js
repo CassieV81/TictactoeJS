@@ -92,9 +92,13 @@ const playGame = (player, marker) => {
   }
   const checkGrids = () => {
     let newGrid = [];
-    let isNotEmpty = (num) => num != '';
+    let isNotEmpty = (grid) => grid != '';
     grids.forEach((grid) => {
-      newGrid.push(grid.innerText);
+      if (grid.className == 'markerX' || grid.className == 'markerO') {
+        newGrid.push(grid.className);
+      } else {
+        newGrid.push('');
+      }
     })
     if (newGrid.every(isNotEmpty)) {
       message.innerText = 'It is a tie!';
