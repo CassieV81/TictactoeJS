@@ -74,12 +74,12 @@ div h1 {
 }
 
 .popUp, .popUps {
+  width: 350px;
   box-shadow: 2px 2px 3px;
   border-radius: 10px;
   padding: 10px;
   position: absolute;
-  top:60%; 
-  left:50%; 
+  inset: auto auto -10%;
   transform:translate(-50%, -50%);
   background-color: rgb(163, 163, 163);
   display: grid;

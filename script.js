@@ -9,8 +9,6 @@ const winLine = document.querySelector('.winLine');
 const easyBtn = document.querySelector('.easy');
 const mediumBtn = document.querySelector('.medium');
 const popUpWraps = document.querySelector('.popUpWraps');
-const markerX = document.querySelector('.markerX');
-const markerO = document.querySelector('.markerO');
 let gameInProgress = false;
 let gameOver = false;
 
@@ -59,13 +57,93 @@ const playGame = (player, marker) => {
       });
     });
   }
-  const computerHard = (player, marker) => {
+
+  const getBoardState = () => {
+    const state = Array.from(grids).map(grid => grid.classList.contains("markerX") ? "X" : grid.classList.contains("markerO") ? "O" : "");
+    return state;
+  };
+  
+  const getAvailableMoves = (board) => {
+    return board.reduce((moves, marker, index) => {
+      if (marker === "") {
+        moves.push(index);
+      }
+      return moves;
+    }, []);
+  };
+  
+  const evaluate = (board) => {
+    const winPatterns = [    [0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]
+    ];
+    for (const pattern of winPatterns) {
+      const [a, b, c] = pattern;
+      if (board[a] !== "" && board[a] === board[b] && board[b] === board[c]) {
+        return board[a] === "X" ? -10 : 10;
+      }
+    }
+    return 0;
+  };
+  
+  const minimax = (board, depth, isMaximizingPlayer) => {
+    const score = evaluate(board);
+    if (score !== 0) {
+      return [score, null];
+    }
+    if (depth === 0) {
+      return [0, null];
+    }
+    const marker = isMaximizingPlayer ? "O" : "X";
+    let bestScore = isMaximizingPlayer ? -Infinity : Infinity;
+    let bestMove = null;
+    const moves = getAvailableMoves(board);
+    for (const m of moves) {
+      const newBoard = [...board];
+      newBoard[m] = marker;
+      const [score, move] = minimax(newBoard, depth - 1, !isMaximizingPlayer);
+      if (isMaximizingPlayer) {
+        if (score > bestScore) {
+          bestScore = score;
+          bestMove = m;
+        }
+      } else {
+        if (score < bestScore) {
+          bestScore = score;
+          bestMove = m;
+        }
+      }
+    }
+    return [bestScore, bestMove];
+  };
+  
+  const computerHard = (marker) => {
     if (gameOver) {
       return;
     }
-    player = 'Computer';
-    marker = markerO;
-  }
+    const board = getBoardState();
+    const moves = getAvailableMoves(board);
+    if (moves.length === 0) {
+      return;
+    }
+    let bestMove = moves[0];
+    let bestScore = -Infinity;
+    for (const m of moves) {
+      const newBoard = [...board];
+      newBoard[m] = "O";
+      const [score, move] = minimax(newBoard, 1, false);
+      if (score > bestScore) {
+        bestScore = score;
+        bestMove = m;
+      }
+    }
+    const grid = grids[bestMove];
+    grid.classList.add("markerO");
+    marker = grid.classList;
+    gameInProgress = false;
+    checkWin("Computer", marker);
+  };
+  
+  
+    
   
   const computerEasy = (player, marker) => {
     if (gameOver) {
