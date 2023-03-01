@@ -13,7 +13,6 @@ const markerX = document.querySelector('.markerX');
 const markerO = document.querySelector('.markerO');
 let gameInProgress = false;
 let gameOver = false;
-let gridEmpty = true;
 
 const playGame = (player, marker) => {
 
@@ -27,7 +26,7 @@ const playGame = (player, marker) => {
     grids.forEach(grid => {
       grid.addEventListener('click', function() {
         if (gameInProgress == false) {
-          if (gridEmpty) {
+          if (grid.hasAttribute('class') == false) {
             grid.setAttribute('class', 'markerX');
             gameInProgress = true;
             checkWin(player, marker);
@@ -48,7 +47,7 @@ const playGame = (player, marker) => {
     grids.forEach(grid => {
       grid.addEventListener('click', function() {
         if (gameInProgress == false) {
-          if (gridEmpty) {
+          if (grid.hasAttribute('class') == false) {
             grid.setAttribute('class', 'markerX');
             gameInProgress = true;
             checkWin(player, marker);
@@ -136,7 +135,7 @@ const playGame = (player, marker) => {
     player = 'Computer';
     marker = markerO;
     let random = grids[Math.floor(Math.random() * grids.length)];
-    if (gridEmpty) {
+    if (random.hasAttribute('class') == false) {
       random.setAttribute('class', 'markerO');; 
       gameInProgress = false;
       checkWin(player, marker);
