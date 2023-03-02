@@ -1,5 +1,5 @@
 # TictactoeJS
-This is a simple Tic Tac Toe game implemented using HTML, CSS, and JavaScript. The game includes playing aginst the computer in three difficulty levels (easy, medium, and hard). The game logic is implemented using the minimax algorithm to determine the computer's moves.
+This is a simple Tic Tac Toe game implemented using HTML, CSS, and JavaScript. The game includes playing aginst the computer in three difficulty levels (easy, medium, and hard) and the game logic is implemented using the minimax algorithm to determine the computer's moves.
 
 
 ## Difficulty Levels
