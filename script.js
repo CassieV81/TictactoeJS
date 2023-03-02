@@ -235,34 +235,42 @@ const playGame = (player, marker) => {
   const checkWin = (player, marker) => {
     if (grids[0].className == marker && grids[1].className == marker && grids[2].className == marker) {
       gameOver = true;
+      gameInProgress = false;
       setTimeout(showWin, 1000, 'winLine1');
       setTimeout(winMessage, 2000, player);
     } else if (grids[3].className == marker && grids[4].className == marker && grids[5].className == marker) {
       gameOver = true;
+      gameInProgress = false;
       setTimeout(showWin, 1000, 'winLine2');      
       setTimeout(winMessage, 2000, player);
     } else if (grids[6].className == marker && grids[7].className == marker && grids[8].className == marker) {
       gameOver = true;
+      gameInProgress = false;
       setTimeout(showWin, 1000, 'winLine3');      
       setTimeout(winMessage, 2000, player);
     } else if (grids[0].className == marker && grids[3].className == marker && grids[6].className == marker) {
       gameOver = true;
+      gameInProgress = false; 
       setTimeout(showWin, 1000, 'winLine4');      
       setTimeout(winMessage, 2000, player);
     } else if (grids[1].className == marker && grids[4].className == marker && grids[7].className == marker) {
       gameOver = true;
+      gameInProgress = false;
       setTimeout(showWin, 1000, 'winLine5');      
       setTimeout(winMessage, 2000, player);
     } else if (grids[2].className == marker && grids[5].className == marker && grids[8].className == marker) {
       gameOver = true;
+      gameInProgress = false;
       setTimeout(showWin, 1000, 'winLine6');      
       setTimeout(winMessage, 2000, player);
     } else if (grids[0].className == marker && grids[4].className == marker && grids[8].className == marker) {
       gameOver = true;
+      gameInProgress = false;
       setTimeout(showWin, 1000, 'winLine7');      
       setTimeout(winMessage, 2000, player);
     } else if (grids[2].className == marker && grids[4].className == marker && grids[6].className == marker) {
       gameOver = true;
+      gameInProgress = false;
       setTimeout(showWin, 1000, 'winLine8');      
       setTimeout(winMessage, 2000, player);
     } else {
