@@ -85,7 +85,7 @@ div h1 {
   border-radius: 10px;
   padding: 10px;
   position: absolute;
-  inset: auto;
+  top: 60%;
   transform:translate(-50%, -50%);
   background-color: rgb(153, 158, 161);
   display: grid;
