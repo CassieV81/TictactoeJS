@@ -2,6 +2,7 @@
 
 const grids = document.querySelectorAll('#grid');
 const message = document.getElementById('message');
+const gameBoard = document.getElementById('gameBoard');
 const popUp = document.querySelector('.popUpWrap');
 const restart = document.querySelector('.restart');
 const newLevel = document.querySelector('.close');
@@ -226,8 +227,8 @@ const playGame = (player, marker) => {
   const showWin = (string) => {
     winLine.setAttribute('class', string);
   }
-  const hideWin = (string) => {
-    winLine.removeAttribute('class', string);
+  const hideWin = () => {
+    winLine.removeAttribute('class');
     winLine.setAttribute('class', 'winLine');
   }
 
@@ -236,48 +237,41 @@ const playGame = (player, marker) => {
       gameOver = true;
       setTimeout(showWin, 1000, 'winLine1');
       setTimeout(winMessage, 2000, player);
-      setTimeout(hideWin, 3000, 'winLine1');
     } else if (grids[3].className == marker && grids[4].className == marker && grids[5].className == marker) {
       gameOver = true;
       setTimeout(showWin, 1000, 'winLine2');      
       setTimeout(winMessage, 2000, player);
-      setTimeout(hideWin, 3000, 'winLine2');
     } else if (grids[6].className == marker && grids[7].className == marker && grids[8].className == marker) {
       gameOver = true;
       setTimeout(showWin, 1000, 'winLine3');      
       setTimeout(winMessage, 2000, player);
-      setTimeout(hideWin, 3000, 'winLine3');
     } else if (grids[0].className == marker && grids[3].className == marker && grids[6].className == marker) {
       gameOver = true;
       setTimeout(showWin, 1000, 'winLine4');      
       setTimeout(winMessage, 2000, player);
-      setTimeout(hideWin, 3000, 'winLine4');
     } else if (grids[1].className == marker && grids[4].className == marker && grids[7].className == marker) {
       gameOver = true;
       setTimeout(showWin, 1000, 'winLine5');      
       setTimeout(winMessage, 2000, player);
-      setTimeout(hideWin, 3000, 'winLine5');
     } else if (grids[2].className == marker && grids[5].className == marker && grids[8].className == marker) {
       gameOver = true;
       setTimeout(showWin, 1000, 'winLine6');      
       setTimeout(winMessage, 2000, player);
-      setTimeout(hideWin, 3000, 'winLine6');
     } else if (grids[0].className == marker && grids[4].className == marker && grids[8].className == marker) {
       gameOver = true;
       setTimeout(showWin, 1000, 'winLine7');      
       setTimeout(winMessage, 2000, player);
-      setTimeout(hideWin, 3000, 'winLine7');
     } else if (grids[2].className == marker && grids[4].className == marker && grids[6].className == marker) {
       gameOver = true;
       setTimeout(showWin, 1000, 'winLine8');      
       setTimeout(winMessage, 2000, player);
-      setTimeout(hideWin, 3000, 'winLine8');
     } else {
       checkGrids();
     }
   }
 
   const clearGame = () => {
+    hideWin();
     grids.forEach((grid) => grid.removeAttribute('class'));
     popUpMessage('none');
     gameOver = false;
@@ -290,8 +284,6 @@ const playGame = (player, marker) => {
 
   return {hardPlay, mediumPlay, easyPlay};
 }
-
-
 
 
 const play = playGame();

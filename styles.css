@@ -1,5 +1,11 @@
+:root {
+  --winLineColor: rgb(206, 48, 0);
+  --backgroundColor: rgb(216, 222, 228);
+  --markerColor: black;
+}
+
 body {
-  background-color: rgb(216, 222, 228);
+  background-color: var(--backgroundColor);
   height: 100vh;
 }
 
@@ -28,8 +34,8 @@ div h1 {
 
 #grid {
   border: solid 1px;
-  width: 12vw;
-  height: 12vw;
+  width: 100px;
+  height: 100px;
   text-align: center;
   font-size: calc(1rem + 5vw);
   font-family: monospace;
@@ -40,7 +46,7 @@ div h1 {
 
 .markerX::before, .markerX::after {
   content: '';
-  background-color: black;
+  background-color: var(--markerColor);
   border-radius: 50px;
   width: 15%;
   height: 95%;
@@ -54,7 +60,7 @@ div h1 {
 }
 .markerO::before, .markerO::after {
   content: '';
-  background-color: black;
+  background-color: var(--markerColor);
   border-radius: 50%;
   width: 80%;
   height: 80%;
@@ -65,7 +71,7 @@ div h1 {
 .markerO::after {
   width: 50%;
   height: 50%;
-  background-color: rgb(216, 222, 228);
+  background-color: var(--backgroundColor);
 }
 
 
@@ -79,9 +85,9 @@ div h1 {
   border-radius: 10px;
   padding: 10px;
   position: absolute;
-  inset: auto auto -10%;
+  inset: auto;
   transform:translate(-50%, -50%);
-  background-color: rgb(163, 163, 163);
+  background-color: rgb(153, 158, 161);
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 2fr 1fr;
@@ -142,7 +148,7 @@ div:has(.levels) {
   display: none;
 }
 .winLine1 {
-  background-color: rgb(245, 14, 14);
+  background-color: var(--winLineColor);
   border-radius: 20px;
   position: absolute;
   width: 90%;
@@ -151,7 +157,7 @@ div:has(.levels) {
   z-index: 5;
 }
 .winLine2 {
-  background-color: rgb(245, 14, 14);
+  background-color: var(--winLineColor);
   border-radius: 20px;
   position: absolute;
   display: block;
@@ -161,7 +167,7 @@ div:has(.levels) {
   z-index: 5;
 }
 .winLine3 {
-  background-color: rgb(245, 14, 14);
+  background-color: var(--winLineColor);
   border-radius: 20px;
   position: absolute;
   display: block;
@@ -171,7 +177,7 @@ div:has(.levels) {
   z-index: 5;
 }
 .winLine4 {
-  background-color: rgb(245, 14, 14);
+  background-color: var(--winLineColor);
   border-radius: 20px;
   position: absolute;
   display: block;
@@ -181,7 +187,7 @@ div:has(.levels) {
   z-index: 5;
 }
 .winLine5 {
-  background-color: rgb(245, 14, 14);
+  background-color: var(--winLineColor);
   border-radius: 20px;
   position: absolute;
   display: block;
@@ -191,7 +197,7 @@ div:has(.levels) {
   z-index: 5;
 }
 .winLine6 {
-  background-color: rgb(245, 14, 14);
+  background-color: var(--winLineColor);
   border-radius: 20px;
   position: absolute;
   display: block;
@@ -201,7 +207,7 @@ div:has(.levels) {
   z-index: 5;
 }
 .winLine7 {
-  background-color: rgb(245, 14, 14);
+  background-color: var(--winLineColor);
   border-radius: 20px;
   position: absolute;
   display: block;
@@ -213,7 +219,7 @@ div:has(.levels) {
   transform: rotate(-45deg);
 }
 .winLine8 {
-  background-color: rgb(245, 14, 14);
+  background-color: var(--winLineColor);
   border-radius: 20px;
   position: absolute;
   display: block;
