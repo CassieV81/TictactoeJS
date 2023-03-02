@@ -1,5 +1,5 @@
 body {
-  background-color: aliceblue;
+  background-color: rgb(216, 222, 228);
   height: 100vh;
 }
 
@@ -65,7 +65,7 @@ div h1 {
 .markerO::after {
   width: 50%;
   height: 50%;
-  background-color: aliceblue;
+  background-color: rgb(216, 222, 228);
 }
 
 
@@ -87,6 +87,29 @@ div h1 {
   grid-template-rows: 2fr 1fr;
   row-gap: 5px;
   z-index: 100;
+}
+div:has(.levels) {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-family: monospace;
+  font-size: 1.5rem;
+}
+.levelBtns {
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+.easy, .medium, .hard {
+  width: 80px;
+  border-radius: 2px;
+}
+.easy:hover, .medium:hover, .hard:hover {
+  cursor: pointer;
+  font-weight: bold;
+  transition: .2s;
+  transform: scale(1.2);
 }
 
 .message, .restart, .close {

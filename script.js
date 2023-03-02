@@ -4,10 +4,11 @@ const grids = document.querySelectorAll('#grid');
 const message = document.getElementById('message');
 const popUp = document.querySelector('.popUpWrap');
 const restart = document.querySelector('.restart');
-const closePopUp = document.querySelector('.close');
+const newLevel = document.querySelector('.close');
 const winLine = document.querySelector('.winLine');
 const easyBtn = document.querySelector('.easy');
 const mediumBtn = document.querySelector('.medium');
+const hardBtn = document.querySelector('.hard');
 const popUpWraps = document.querySelector('.popUpWraps');
 let gameInProgress = false;
 let gameOver = false;
@@ -30,6 +31,27 @@ const playGame = (player, marker) => {
             checkWin(player, marker);
             if (gameInProgress) {
               setTimeout(computerHard, 1000);
+            }
+          }
+        }
+      });
+    });
+  };
+  const mediumPlay = () => {
+    if (gameOver) {
+      return;
+    }
+    player = 'Player 1';
+    grids.forEach(grid => {
+      grid.addEventListener('click', function() {
+        if (gameInProgress == false) {
+          if (grid.hasAttribute('class') == false) {
+            grid.setAttribute('class', 'markerX');
+            marker = grid.getAttribute('class');
+            gameInProgress = true;
+            checkWin(player, marker);
+            if (gameInProgress) {
+              setTimeout(computerMedium, 1000);
             }
           }
         }
@@ -85,34 +107,33 @@ const playGame = (player, marker) => {
   };
   
   const minimax = (board, depth, isMaximizingPlayer) => {
-    const score = evaluate(board);
-    if (score !== 0) {
-      return [score, null];
-    }
-    if (depth === 0) {
-      return [0, null];
-    }
-    const marker = isMaximizingPlayer ? "O" : "X";
-    let bestScore = isMaximizingPlayer ? -Infinity : Infinity;
-    let bestMove = null;
     const moves = getAvailableMoves(board);
-    for (const m of moves) {
-      const newBoard = [...board];
-      newBoard[m] = marker;
-      const [score, move] = minimax(newBoard, depth - 1, !isMaximizingPlayer);
-      if (isMaximizingPlayer) {
-        if (score > bestScore) {
-          bestScore = score;
-          bestMove = m;
-        }
-      } else {
-        if (score < bestScore) {
-          bestScore = score;
-          bestMove = m;
-        }
+    const score = evaluate(board);
+    if (score !== 0 || depth === 0) {
+      return score;
+    }
+    if (moves.length === 0) {
+      return 0;
+    }
+    let bestScore;
+    if (isMaximizingPlayer) {
+      bestScore = -Infinity;
+      for (const move of moves) {
+        const newBoard = [...board];
+        newBoard[move] = "O";
+        const moveScore = minimax(newBoard, depth - 1, false);
+        bestScore = Math.max(bestScore, moveScore);
+      }
+    } else {
+      bestScore = Infinity;
+      for (const move of moves) {
+        const newBoard = [...board];
+        newBoard[move] = "X";
+        const moveScore = minimax(newBoard, depth - 1, true);
+        bestScore = Math.min(bestScore, moveScore);
       }
     }
-    return [bestScore, bestMove];
+    return bestScore;
   };
   
   const computerHard = (marker) => {
@@ -120,19 +141,16 @@ const playGame = (player, marker) => {
       return;
     }
     const board = getBoardState();
-    const moves = getAvailableMoves(board);
-    if (moves.length === 0) {
-      return;
-    }
-    let bestMove = moves[0];
+    let bestMove;
     let bestScore = -Infinity;
-    for (const m of moves) {
+    const moves = getAvailableMoves(board);
+    for (const move of moves) {
       const newBoard = [...board];
-      newBoard[m] = "O";
-      const [score, move] = minimax(newBoard, 1, false);
-      if (score > bestScore) {
-        bestScore = score;
-        bestMove = m;
+      newBoard[move] = "O";
+      const moveScore = minimax(newBoard, 6, false);
+      if (moveScore > bestScore) {
+        bestScore = moveScore;
+        bestMove = move;
       }
     }
     const grid = grids[bestMove];
@@ -142,8 +160,29 @@ const playGame = (player, marker) => {
     checkWin("Computer", marker);
   };
   
-  
-    
+  const computerMedium = (marker) => {
+    if (gameOver) {
+      return;
+    }
+    const board = getBoardState();
+    let bestMove;
+    let bestScore = -Infinity;
+    const moves = getAvailableMoves(board);
+    for (const move of moves) {
+      const newBoard = [...board];
+      newBoard[move] = "O";
+      const moveScore = minimax(newBoard, 2, false);
+      if (moveScore > bestScore) {
+        bestScore = moveScore;
+        bestMove = move;
+      }
+    }
+    const grid = grids[bestMove];
+    grid.classList.add("markerO");
+    marker = grid.classList;
+    gameInProgress = false;
+    checkWin("Computer", marker);
+  };  
   
   const computerEasy = (player, marker) => {
     if (gameOver) {
@@ -191,8 +230,6 @@ const playGame = (player, marker) => {
     winLine.removeAttribute('class', string);
     winLine.setAttribute('class', 'winLine');
   }
-  
-  closePopUp.addEventListener('click', (e) => popUpMessage('none'));
 
   const checkWin = (player, marker) => {
     if (grids[0].className == marker && grids[1].className == marker && grids[2].className == marker) {
@@ -246,10 +283,12 @@ const playGame = (player, marker) => {
     gameOver = false;
     gameInProgress = false;
   }
-
+//Changed restart to play again, then changed close class to select new level.
   restart.addEventListener('click', (e) => clearGame())
+  
+  newLevel.addEventListener('click', (e) => location.reload());
 
-  return {hardPlay, easyPlay};
+  return {hardPlay, mediumPlay, easyPlay};
 }
 
 
@@ -261,11 +300,15 @@ const easy = () => {
   play.easyPlay();
   popUpWraps.style.display = 'none';
 }
-
+const medium = () => {
+  play.mediumPlay();
+  popUpWraps.style.display = 'none';
+}
 const hard = () => {
   play.hardPlay();
   popUpWraps.style.display = 'none';
 }
 
 easyBtn.addEventListener('click', (e) => easy());
-mediumBtn.addEventListener('click', (e) => hard());
+mediumBtn.addEventListener('click', (e) => medium());
+hardBtn.addEventListener('click', (e) => hard());
